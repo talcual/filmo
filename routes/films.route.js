@@ -1,7 +1,11 @@
 
+const authToken = require('../middlewares/jwt.mid.js')
 
 function filmRouter(express){
     const router = express.Router()
+    
+    router.use(authToken)
+
     const { create, get, getAll, update, deleteRow } = require('../controllers/film.controller.js')
 
     router.post('/create', create)
