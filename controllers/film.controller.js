@@ -1,10 +1,4 @@
 
-const films = [
-    { id: 1, nombre: 'Bad Boys 2', idioma: 'ES' },
-    { id: 2, nombre: 'Bad Boys 3', idioma: 'ES' },
-    { id: 3, nombre: 'Fast and Furious', idioma: 'ES' },
-];
-
 const film = require('../models/Film');
 
 module.exports = {
