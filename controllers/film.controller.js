@@ -5,29 +5,40 @@ const films = [
     { id: 3, nombre: 'Fast and Furious', idioma: 'ES' },
 ];
 
+const film = require('../models/Film');
 
 module.exports = {
-    create: (req, res) => {
-        const { username, password } = req.body;
-        if (username === 'admin' && password === 'admin') {            
-            return res.status(200).json({'response': 'ok'});
-        } else {
-            return res.status(401).json({ message: 'Invalid credentials' });
+    create: async (req, res) => {
+
+        const { nombre, resumen, idioma } = req.body;
+
+        let fcreatedFilm = await film.create({
+            nombre: nombre,
+            resumen: resumen,
+            idioma: idioma
+        });
+
+        if (fcreatedFilm) {
+            console.log('Film created:', fcreatedFilm);
+            return res.status(201).json({ 'response': 'ok', 'film': fcreatedFilm });
+        }else {
+            console.log('Error creating film');
+            return res.status(500).json({ 'response': 'error', 'message': 'Error creating film' });
         }
+
     },
     get: (req, res) => {
         console.log('getById')
         return res.json({});
     },
-    getAll : (req, res) => {
-        const { q } = req.query;  
-        let film_filter = films.filter(film => {
-            if (q) {
-                return film.nombre.toLowerCase().includes(q.toLowerCase());
-            }
-        }) || films;
+    getAll : async (req, res) => {
         
-        res.json(film_filter);
+        let films = await film.findAll({
+            attributes: ['id', 'nombre', 'resumen', 'idioma'],
+            order: [['createdAt', 'ASC']]
+        });
+
+        res.json(films);
     },
     update: (req, res) => {
         

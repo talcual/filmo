@@ -1,7 +1,10 @@
 
 
 const jwt = require('jsonwebtoken');
-const SECRET_KEY = ')%&/(%&&%##$&#$%&#$FDGHEDF$#%&#$%$%$';
+const dotenv = require('dotenv');
+dotenv.config(); 
+
+const SECRET_KEY = process.env.JWT_SECRET;
 
 function authToken(req, res, next) {
  

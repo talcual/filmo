@@ -1,8 +1,11 @@
 
-const express = require('express')
-const app     = express()
-const cors = require('cors')
-const port    = 3002;
+const express   = require('express')
+const app       = express()
+const cors      = require('cors')
+const dbm       = require('./models/index');
+const port      = 3002;
+
+dbm(); // Initialize the database and models
 
 // Config Middlewares
 app.use(cors())
